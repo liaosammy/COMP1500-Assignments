@@ -1,32 +1,50 @@
 package application;
 
+import java.util.Scanner;
+
 public class PA4b {
 
     public static void main(String[] args) {
-        if (args.length != 7) {
-            System.out.println("Please supply correct inputs: color x1 y1 x2 y2 x3 y3");
-            return;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter the color:");
+        String color = scanner.nextLine();
+
+        System.out.println("Please enter the x1 coordinate:");
+        double x1 = readDouble(scanner);
+
+        System.out.println("Please enter the y1 coordinate:");
+        double y1 = readDouble(scanner);
+
+        System.out.println("Please enter the x2 coordinate:");
+        double x2 = readDouble(scanner);
+
+        System.out.println("Please enter the y2 coordinate:");
+        double y2 = readDouble(scanner);
+
+        System.out.println("Please enter the x3 coordinate:");
+        double x3 = readDouble(scanner);
+
+        System.out.println("Please enter the y3 coordinate:");
+        double y3 = readDouble(scanner);
+
+        scanner.close();
+
+        Point2D p1 = new Point2D(x1, y1);
+        Point2D p2 = new Point2D(x2, y2);
+        Point2D p3 = new Point2D(x3, y3);
+        Triangle triangle = new Triangle(p1, p2, p3);
+
+        String csv = shapeVertices(triangle, color);
+        System.out.println(csv);
+    }
+
+    private static double readDouble(Scanner scanner) {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a valid number:");
+            scanner.next(); // discard invalid input
         }
-
-        String color = args[0];
-        try {
-            double x1 = Double.parseDouble(args[1]);
-            double y1 = Double.parseDouble(args[2]);
-            double x2 = Double.parseDouble(args[3]);
-            double y2 = Double.parseDouble(args[4]);
-            double x3 = Double.parseDouble(args[5]);
-            double y3 = Double.parseDouble(args[6]);
-
-            Point2D p1 = new Point2D(x1, y1);
-            Point2D p2 = new Point2D(x2, y2);
-            Point2D p3 = new Point2D(x3, y3);
-            Triangle triangle = new Triangle(p1, p2, p3);
-
-            String csv = shapeVertices(triangle, color);
-            System.out.println(csv);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid number format. Please provide valid numbers.");
-        }
+        return scanner.nextDouble();
     }
 
     public static String shapeVertices(Shape2D shape, String color) {
@@ -51,4 +69,8 @@ public class PA4b {
         return csv.toString();
     }
 }
+
+
+  
+
 
